@@ -1,0 +1,74 @@
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is 
+	JAX-WS RI 2.1.7-b01-. -->
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://org.sebcel/testservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" name="PhoenixService"
+	targetNamespace="http://org.sebcel/testservice">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://org.sebcel/testservice">
+			<xsd:complexType name="BasicResponse">
+				<xsd:sequence>
+					<xsd:element name="errorCode" type="xsd:int" maxOccurs="1"
+						minOccurs="1" />
+					<xsd:element name="errorDescription" type="xsd:string"
+						maxOccurs="1" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="GetStatusRequest">
+				<xsd:sequence></xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="GetStatusResponse">
+				<xsd:complexContent>
+					<xsd:extension base="tns:BasicResponse">
+						<xsd:sequence>
+							<xsd:element name="contractVersion" type="xsd:string"
+								maxOccurs="1" minOccurs="1" />
+							<xsd:element name="implementationVersion" type="xsd:string"
+								maxOccurs="1" minOccurs="0" />
+							<xsd:element name="statusCode" type="xsd:int"
+								maxOccurs="1" minOccurs="1" />
+							<xsd:element name="statusDescription" type="xsd:string"
+								maxOccurs="1" minOccurs="0" />
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			
+			<xsd:element name="getStatusRequest" type="tns:GetStatusRequest" />
+			<xsd:element name="getStatusResponse" type="tns:GetStatusResponse" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="GetStatusRequest">
+		<wsdl:part name="getStatusRequest" element="tns:getStatusRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetStatusResponse">
+		<wsdl:part name="getStatusResponse" element="tns:getStatusResponse" />
+	</wsdl:message>
+	<wsdl:portType name="TestService">
+		<wsdl:documentation />
+		<wsdl:operation name="GetStatus">
+			<wsdl:input message="tns:GetStatusRequest" />
+			<wsdl:output message="tns:GetStatusResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TestServiceSOAP" type="tns:TestService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetStatus">
+			<soap:operation soapAction="http://org.sebcel/GetStatus" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TestService">
+		<wsdl:port binding="tns:TestServiceSOAP" name="TestServiceSOAP">
+			<soap:address
+				location="http://localhost:9999/TestService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,12 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+	<S:Body>
+		<ns2:getStatusResponse xmlns:ns2="http://org.sebcel/testservice">
+			<errorCode>0</errorCode>
+			<errorDescription>OK</errorDescription>
+			<contractVersion>1.0</contractVersion>
+			<implementationVersion>1.0</implementationVersion>
+			<statusCode>0</statusCode>
+			<statusDescription>Status: 0</statusDescription>
+		</ns2:getStatusResponse>
+	</S:Body>
+</S:Envelope>
